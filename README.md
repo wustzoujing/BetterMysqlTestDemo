@@ -107,4 +107,6 @@ mysql> select count(*) from emp;
 4.到这里就结束了，具体优化方法可以参考博文哦！！！
 
 
-参考博客地址：www.wustzoujing.github.io;参考mysql标签或分类的博文。
+参考博客地址：www.wustzoujing.github.io
+
+参考mysql标签或分类的博文。
