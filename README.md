@@ -104,6 +104,48 @@ mysql> select count(*) from emp;
 1 row in set (0.00 sec)
 
 
+#**************************************************************
+#  向dept表中插入记录
+
+delimiter $$
+drop procedure insert_dept $$
+
+
+create procedure insert_dept(in start int(10),in max_num int(10))
+begin
+declare i int default 0; 
+ set autocommit = 0;  
+ repeat
+ set i = i + 1;
+ insert into dept values ((start+i) ,rand_string(10),rand_string(8));
+  until i = max_num
+ end repeat;
+   commit;
+ end $$
+
+
+delimiter ;
+call insert_dept(100,10);
+
+//出现以下提示就成功啦！
+mysql> delimiter $$
+mysql> create procedure insert_dept(in start int(10),in max_num int(10))
+    -> begin
+    -> declare i int default 0; 
+    ->  set autocommit = 0;  
+    ->  repeat
+    ->  set i = i + 1;
+    ->  insert into dept values ((start+i) ,rand_string(10),rand_string(8));
+    ->   until i = max_num
+    ->  end repeat;
+    ->    commit;
+    ->  end $$
+Query OK, 0 rows affected (0.01 sec)
+
+mysql> delimiter ;
+mysql> call insert_dept(100,10);
+Query OK, 0 rows affected (0.01 sec)
+
 4.到这里就结束了，具体优化方法可以参考博文哦！！！
 
 
