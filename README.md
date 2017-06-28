@@ -1,12 +1,13 @@
 # BetterMysqlTestDemo
-mysql 优化，压力测试脚本。
+&#160; &#160; &#160; &#160;mysql 优化，压力测试脚本。
 
-适用人群：想做mysql优化的朋友可以看看，写了一个存储过程来随机生成一个400万条数据的表，然后进行相关优化策略实战。
+&#160; &#160; &#160; &#160;适用人群：想做mysql优化的朋友可以看看，写了一个存储过程来随机生成一个400万条数据的表，然后进行相关优化策略实战。
 
 
 
-1.建表
-总共建了三张表，脚本分别如下：
+## 建表
+&#160; &#160; &#160; &#160;总共建了三张表，脚本分别如下：
+```
 CREATE TABLE dept( /*部门表*/
 deptno MEDIUMINT   UNSIGNED  NOT NULL  DEFAULT 0,  /*编号*/
 dname VARCHAR(20)  NOT NULL  DEFAULT "", /*名称*/
@@ -32,16 +33,21 @@ grade MEDIUMINT UNSIGNED NOT NULL DEFAULT 0,
 losal DECIMAL(17,2)  NOT NULL,
 hisal DECIMAL(17,2)  NOT NULL
 )ENGINE=MyISAM DEFAULT CHARSET=utf8;
-
+```
 
 还提供一些测试数据：
-
+```
 INSERT INTO salgrade VALUES (1,700,1200);
 INSERT INTO salgrade VALUES (2,1201,1400);
 INSERT INTO salgrade VALUES (3,1401,2000);
 INSERT INTO salgrade VALUES (4,2001,3000);
 INSERT INTO salgrade VALUES (5,3001,9999);
-2.两个随机函数的书写
+```
+
+## 两个随机函数的书写
+
+
+```
 //先要修改截止标志符
 delimiter $$
 
@@ -72,9 +78,9 @@ begin
  set i =floor(10+rand()*500); 
 return i;
 end $$
-
-3.存储过程的书写
-
+```
+## 存储过程的书写
+```
 create procedure insert_emp(in start int(10),in max_num int(10))
 begin
 declare i int default 0; 
@@ -88,11 +94,13 @@ declare i int default 0;
    commit;
  end $$
 
+
 //调用刚刚写好的函数, 1800000条记录,从100001号开始
 
 call insert_emp(100001,4000000);
 
 //等待几分钟就可以了，此时可以看看插入的数据条数
+
 
 mysql> delimiter ;
 mysql> select count(*) from emp;
@@ -145,10 +153,11 @@ Query OK, 0 rows affected (0.01 sec)
 mysql> delimiter ;
 mysql> call insert_dept(100,10);
 Query OK, 0 rows affected (0.01 sec)
+```
 
-4.到这里就结束了，具体优化方法可以参考博文哦！！！
+## 到这里就结束了，具体优化方法可以参考博文哦！！！
 
 
-参考博客地址：www.wustzoujing.github.io
+&#160; &#160; &#160; &#160;参考博客地址：www.wustzoujing.github.io
 
-参考mysql标签或分类的博文。
+&#160; &#160; &#160; &#160;参考mysql标签或分类的博文。
